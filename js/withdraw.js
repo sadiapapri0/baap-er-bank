@@ -1,68 +1,61 @@
 /*
 
 1. add event handler to the withdraw button
-2. get the withdraw amount from the withdraw input field
-2-5. also make sure to convert the input value into a number by using parseFloat
-3. clear the input field
+2. get the withdraw amount
+2-5. convert string withdraw amount to a number type
+3. clear the withdraw input field
 
-3-5. get previous total withdraw
+4. get the previous withdraw total amount
+4-5. convert string previous withdraw amount to a number type
 
-4. calculate total withdraw amount
-4-5. set total withdraw amount
+5. get the previous balance total amount
+5-5. convert string previous balance amount to a number type
 
-5. get the previous total balance
-6. calculate new total balance
-6-5. set the new total balance
+6. make sure the input withdraw amount is less than previous balance amount 
 
+7. calculate new withdraw amount and update the amount to the withdraw total element
+
+8. Calculate new balance amount and update the amount to the balance total element
 
 */
 
-// step-1: 
+// step-1
 document.getElementById('btn-withdraw').addEventListener('click', function () {
-    // step-2:
+    // step-2
     const withdrawField = document.getElementById('withdraw-field');
     const newWithdrawAmountString = withdrawField.value;
-
-    // step-2.5:
     const newWithdrawAmount = parseFloat(newWithdrawAmountString);
-    console.log(newWithdrawAmount);
 
-    // step-3:
+    // step-3
     withdrawField.value = '';
 
-    // -------------------------------->
     if (isNaN(newWithdrawAmount)) {
-        alert('Please provide a vilid number');
+        alert('Please provide a valid number');
         return;
     }
 
-    // step-3-5:
-    const withdrawTotalAmount = document.getElementById('withdraw-total');
-    const previousWithdrawTotalString = withdrawTotalAmount.innerText;
-    const previousWithdrawTotal = parseFloat(previousWithdrawTotalString);
+    // step-4
+    const withdrawTotalElement = document.getElementById('withdraw-total');
+    const previousWithdrawAmountString = withdrawTotalElement.innerText;
+    const previousWithdrawAmount = parseFloat(previousWithdrawAmountString);
 
+    // step-5
+    const balanceTotalElement = document.getElementById('balance-total');
+    const previousBalanceTotalString = balanceTotalElement.innerText;
+    const previousBalanceTotal = parseFloat(previousBalanceTotalString);
 
-    // step-5: 
-    const balanceRate = document.getElementById('balance-total');
-    const previousBalanceRateString = balanceRate.innerText;
-    const previousBalanceRate = parseFloat(previousBalanceRateString);
-
-
-    if (newWithdrawAmount > previousBalanceRate) {
-        alert('Baap er Bank e eto Taka nei');
+    // step-6
+    if (newWithdrawAmount > previousBalanceTotal) {
+        alert('baap er bank e eto taka nei');
         return;
     }
 
-    // step-4: 
-    const currentWithdrawAmount = previousWithdrawTotal + newWithdrawAmount;
+    // step-7
+    const currentWithdrawAmount = newWithdrawAmount + previousWithdrawAmount;
+    withdrawTotalElement.innerText = currentWithdrawAmount;
 
-    // step-4.5:
-    withdrawTotalAmount.innerText = currentWithdrawAmount;
-
-    // step-6:
-    const currentBalanceRate = previousBalanceRate - newWithdrawAmount;
-
-    // step-6.5:
-    balanceRate.innerText = currentBalanceRate;
+    // step-8
+    const currentBalanceTotal = previousBalanceTotal - newWithdrawAmount;
+    balanceTotalElement.innerText = currentBalanceTotal;
 
 })
